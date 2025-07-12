@@ -1,0 +1,5 @@
+
+eel
+pyttsx3
+speechrecognition
+pyaudio

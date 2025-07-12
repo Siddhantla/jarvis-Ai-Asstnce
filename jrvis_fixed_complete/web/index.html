@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JARVIS Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="assets/jarvis1.png" />
+</head>
+<body>
+
+  <!-- Boot Screen -->
+  <div id="boot-screen">
+    <div class="boot-box">
+      <img src="assets/jarvis1.png" alt="JARVIS Boot Logo" style="width: 100px;" />
+      <img src="assets/jarvis_loading.gif" alt="Loading Animation" style="width: 140px;" />
+      <h2>Activating JARVIS systems…</h2>
+      <p class="loading">Initializing AI Core...</p>
+    </div>
+  </div>
+
+  <!-- Audio Files -->
+  <audio id="boot-audio" preload="auto">
+    <source src="assets/jarvis_startup.mp3" type="audio/mpeg" />
+  </audio>
+
+  <audio id="greeting-audio" preload="auto">
+    <source src="assets/jarvis_greeting.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Main UI -->
+  <img src="assets/jarvis1.png" alt="JARVIS Logo" />
+  <h1>🧠 JARVIS Voice Assistant</h1>
+
+  <input type="text" id="chatbox" placeholder="Type your command here..." />
+  <button onclick="sendCommand()">Send</button>
+  <button onclick="startListening()">🎤 Mic</button>
+
+  <div id="output">Say or type a command to get started...</div>
+
+  <script type="text/javascript" src="/eel.js"></script>
+  <script src="script.js"></script>
+
+  <script>
+    window.onload = function () {
+      const bootAudio = document.getElementById("boot-audio");
+      const greetingAudio = document.getElementById("greeting-audio");
+
+      // Try to play startup sound
+      if (bootAudio) {
+        bootAudio.play().catch(() => {
+          document.body.addEventListener("click", () => bootAudio.play(), { once: true });
+        });
+      }
+
+      // After boot delay, hide screen and play greeting
+      setTimeout(() => {
+        const boot = document.getElementById("boot-screen");
+        if (boot) boot.style.display = "none";
+
+        if (greetingAudio) {
+          greetingAudio.play().catch(() => {
+            document.body.addEventListener("click", () => greetingAudio.play(), { once: true });
+          });
+        }
+      }, 3000);
+    };
+  </script>
+</body>
+</html>
